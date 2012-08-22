@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery Mobile - Dynamic Popup Tests</title>
+    <!--
+    <link rel="stylesheet"  href="http://jquery-mobile.serbang/css/themes/default/jquery.mobile.css" />
+    <link rel="stylesheet" href="http://jquery-mobile.serbang/css/structure/jquery.mobile.popup.css" />
+    <script src="http://jquery-mobile.serbang/js/jquery.js"></script>
+    <script src="http://jquery-mobile.serbang/js/"></script>
+    -->
+    <link rel="stylesheet"  href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
+    <script src="http://jquerymobile.com/test/js/jquery.js"></script>
+    <script src="http://jquerymobile.com/test/js/jquery.mobile.js"></script>
+
+
+    <script src="jquery.mobile.dynamic.popup.js"></script>
+
+    <script type="text/javascript">
+        $(document).delegate( '#home', 'pageinit', function() {
+
+            $('#Register').bind('click', function(e){
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var successText = '<p>' + $('#name').val() + ', you\'ve been successfully registered!' + '</p>';
+
+                $.fn.dynamicPopup({
+                    content: successText,
+                    popupContentCloseButtonLabel: 'Nice!',
+                    //callbacks: {
+                    //    popupContentCloseButton: function(){
+                    //      this.removeAttr('data-rel');
+                    //  }
+                    //},
+                    popupOptions: {
+                        positionTo: $('#testText')
+                    }
+                })
+                //.css({'border':'1px solid red'})
+                .bind({
+                    popupbeforeposition: function(e){
+                        //console.log('popupbeforeposition');
+                    },
+                    popupafteropen: function(e){
+                        //console.log('popupafteropen');
+                    },
+                    popupafterclose: function(e){
+                        //console.log('popupafterclose');
+                        $.mobile.changePage('#subpage');
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+
+<div id="home" data-role="page">
+
+    <div data-role="header">
+        <a href="demo.html" data-icon="home" data-iconpos="notext" data-direction="reverse" data-transition="slide">Home</a>
+        <h3>Popup</h3>
+    </div>
+
+    <div data-role="content">
+
+        <h3>Description</h3>
+
+        <p> This is a <b>jQuery Mobile plugin</b> based on the <code>popup()</code> function available since <a href="http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/index.html">1.2 alpha</a>.
+            It enables you to create a dynamic popup without needing to define a specific div with content.</p>
+        <p>
+            <span id="testText" style="color:#ee82ee;">This case</span> is extremely useful when you are submitting a form,
+        and via AJAX you receive an error or a success response. Depending on that you can show a generic popup which can do basic things
+        or something that you define via the <code>callbacks</code> param.</p>
+
+
+        <p>Random usage example, the popup should be positioned near the purple text and should contain some static text passed through <code>content</code> param.</code> </p>
+        <pre style="border:1px solid #cccccc;">
+            $.fn.dynamicPopup({
+                content: 'This is the dynamic content of the popup!',
+                callbacks: {
+                  popupContent: function(){
+                      this.append('&lt;p&gt;Content from callback&lt;/p&gt;');
+                  }
+                },
+                popupOptions: {
+                    positionTo: $('#testText')
+                }
+            })
+            .css({'border':'1px solid red'})
+            .bind({
+                popupbeforeposition: function(e){
+                    console.log('popupbeforeposition');
+                },
+                popupafteropen: function(e){
+                    console.log('popupafteropen');
+                },
+                popupafterclose: function(e){
+                    console.log('popupafterclose');
+                }
+            });
+        </pre>
+
+        <hr>
+
+        <h3>Demo</h3>
+
+        <p>Fill the <code>name</code> field and press the <code>Register</code> button:</p>
+
+        <form>
+
+            <div data-role="fieldcontain">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="" placeholder="Your name" autocapitalize="on" pattern="[a-zA-Z\- ]+" />
+            </div>
+
+            <div data-role="fieldcontain">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="" placeholder="your@email.com" />
+            </div>
+
+            <button data-role="button" id="Register" data-inline="true" data-icon="arrow-r" data-iconpos="right">Register</button>
+
+        </form>
+
+
+        <hr>
+
+        <h3>Calling the plugin</h3>
+
+        <p>Look at the source code of this page.</p>
+        <p>This is how the plugin can be called:</p>
+
+        <pre>
+  $.dynamicPopup({
+      content: 'This is the dynamic content of the popup.',
+      popupId: '',
+      popupClass: '',
+      popupContentClass: '',
+      popupCloseButtonClass: '',
+      popupContentCloseButtonClass: '',
+      popupContentCloseButtonLabel: '',
+      callbacks: {
+           popup: function(){ },
+           popupContent: function(){ },
+           popupCloseButton: function(){ },
+           popupContentCloseButton: function(){ }
+      },
+      popupOptions: { // http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/options.html
+           corners: bool,
+           initSelector: '',
+           overlayTheme: '',
+           positionTo: '',
+           shadow: bool,
+           theme: '',
+           tolerance: '',
+           transition: ''
+      }
+  });
+        </pre>
+
+    </div>
+
+    <div data-role="footer">
+        <p>Serban Ghita @ 2012</p>
+    </div>
+
+</div>
+
+<div id="subpage" data-role="page">
+
+    <div data-role="header">
+
+        <a href="demo.html" data-icon="home" data-iconpos="notext" data-direction="reverse" data-transition="slide" data-rel="back">Home</a>
+        <h3>Popup</h3>
+
+    </div>
+    <div data-role="content">
+
+        <h1>Thank you message</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non tortor et neque aliquet vestibulum eu non eros.
+            Quisque non risus eu justo hendrerit sagittis.</p>
+
+    </div>
+    <div data-role="footer">
+
+        <p>Serban Ghita @ 2012</p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
