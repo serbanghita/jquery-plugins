@@ -14,4 +14,4 @@ don't use any CSS but support them, depend only on jQuery (not UI), compatible w
 
 ### Current jQuery Mobile plugins:
 
-**jQuery Mobile dynamic popup** - It gives the developer the possibility to run the popup() function from jQuery Mobile 1.2 without caring about HTML code, code placement, etc. and focusing only on the content & behaviour of the popup.
+**jQuery Mobile dynamic popup** - It gives the developer the possibility to run the popup() function from jQuery Mobile 1.2 without caring about HTML code, code placement, etc. and focusing only on the content & behaviour of the popup. Please test it on you phone on [http://is.gd/jqmpopup](http://is.gd/jqmpopup)
