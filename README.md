@@ -3,6 +3,8 @@ _Created with whole lotta love by [@serbanghita](http://twitter.com/serbanghita)
 
 This repository contains useful jQuery and jQuery mobile plugins. If you find any of these useful let me know by staring or forking the project.
 
+This repository is proudly sponsored by ![BrowserStack](http://jquery.org/wp-content/uploads/2010/01/browserstack-150.png). [BrowserStack](http://www.browserstack.com) is a complete browser coverage tool (including mobile devices) for testing you web application.
+
 ### Current jQuery plugins:
 
 **jQuery Chessboard** - Is an attempt to reproduce [Chess.com](http://www.chess.com) chess board with the help of jQuery and jQuery UI. The chessboard is also designed with mobile in mind.
