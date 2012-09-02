@@ -1,0 +1,8 @@
+@import url('/ux/css/demo.css');
+
+#footer-poll fieldset { border: none; }
+.inbox-messages { margin-top:10px; }
+.inbox-messages img { vertical-align: middle; }
+.inbox-messages p { padding: 5px 0px; font-size:10px; }
+.inbox-messages a { text-decoration: none; color:#eee; }
+.inbox-messages a:hover { text-decoration: underline; }

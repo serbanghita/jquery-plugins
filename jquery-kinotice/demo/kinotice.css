@@ -1,0 +1,147 @@
+/* kiNotice core CSS */
+.kinotice { 
+    width:290px; 
+    border:2px solid #ccc; 
+    border-bottom: none;
+    background:#eee; 
+    -webkit-border-radius: 6px 6px 0px 0px; 
+    -moz-border-radius: 6px 6px 0px 0px; 
+    border-radius: 6px 6px 0px 0px; 
+    position:fixed; 
+    right:10px; 
+    bottom:0px; 
+    margin:0; 
+    padding:0; 
+    z-index:1; 
+    visibility:hidden;
+    color:#404040;
+}
+.kinotice.init { visibility:visible; display:block; }
+
+.kinotice-toggle { display:block; position:absolute; background: #ccc; right:0px; z-index:2; }
+    .kinotice-toggle span { min-width: 10px; display:inline-block; padding:1px 4px 2px 4px; cursor: pointer; text-align:center; }
+.kinotice-inner { padding:7px 10px; }
+.kinotice-title { padding: 0px; margin-bottom: 5px; }
+.kinotice-content { padding:0px; }
+
+/* IE6 fix */
+* html .kinotice { position: absolute; }
+* html { overflow-y: hidden; }
+* body { height: 100%; overflow: auto; }
+
+/* ---- cut here if you don't use custom skins ---- */
+
+/* Kiss Theme */
+.kinotice.KissTheme { 
+    -webkit-border-radius: 6px 0px 0px 0px; 
+    -moz-border-radius: 6px 0px 0px 0px; 
+    border-radius: 6px 0px 0px 0px;
+}
+    
+.kinotice.KissTheme .kinotice-toggle { 
+    top:-19px; 
+    right:-2px; 
+    background: #eee; 
+    -webkit-border-radius: 6px 6px 0px 0px;  
+    -moz-border-radius: 6px 6px 0px 0px; 
+    border-radius: 6px 6px 0px 0px;
+    border:2px solid #ccc;
+    border-bottom: none;
+}
+
+/* DarkKiss Theme */
+.kinotice.DarkKissTheme { 
+    -webkit-border-radius: 6px 0px 0px 0px; 
+    -moz-border-radius: 6px 0px 0px 0px; 
+    border-radius: 6px 0px 0px 0px;
+    background:#2E2D2A;
+    border:2px solid #ccc; 
+    border-bottom: none;
+    color:white;
+}
+
+.kinotice.DarkKissTheme.anim {
+    
+    -moz-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -webkit-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -o-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -ms-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    
+    -webkit-transition: background 500ms ease-in;
+    -moz-transition: background 500ms ease-in;
+    -o-transition: background 500ms ease-in;
+    transition: background 500ms ease-in;    
+    
+}
+    
+.kinotice.DarkKissTheme .kinotice-toggle { 
+    top:-19px; 
+    right:-2px; 
+    background:#2E2D2A; 
+    -webkit-border-radius: 6px 6px 0px 0px;  
+    -moz-border-radius: 6px 6px 0px 0px; 
+    border-radius: 6px 6px 0px 0px;
+    border:2px solid #ccc;
+    border-bottom: none;
+    color:white;
+}
+
+/* Alma Theme */
+.kinotice.AlmaTheme { 
+    
+    -webkit-border-radius: 6px 6px 0px 0px; 
+    -moz-border-radius: 6px 6px 0px 0px; 
+    border-radius: 6px 6px 0px 0px;
+    background:#00A5F0;
+    border: 1px solid rgba(0, 0, 0, .2); 
+    border-bottom: none; 
+    text-shadow: 0 -1px rgba(0, 0, 0, .2);
+    color:white;
+    
+    box-shadow: 0 1px rgba(255, 255, 255, .4) inset, 0 1px #fff, 0 1px #fff;
+    -moz-box-shadow: 0 1px rgba(255, 255, 255, .4) inset, 0 1px #fff;
+    -webkit-box-shadow: 1px 1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        -1px 1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        1px -1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        -1px -1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        1px 1px -1px 2px rgba(255,255,255,.5);    
+    
+}
+
+.kinotice.AlmaTheme.anim .kinotice-toggle {
+    
+    -moz-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -webkit-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -o-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    -ms-transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    transform: scale(1) rotate(-2deg) translate(0px, -10px) skew(0deg, 0deg);
+    
+    -webkit-transition: background 500ms ease-in;
+    -moz-transition: background 500ms ease-in;
+    -o-transition: background 500ms ease-in;
+    transition: background 500ms ease-in;    
+    
+}
+    
+.kinotice.AlmaTheme .kinotice-toggle { 
+    top:-17px; 
+    right:5px; 
+    background:red; 
+    -webkit-border-radius: 12px;  
+    -moz-border-radius: 12px; 
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, .2); 
+    color:white;
+    text-shadow: 0 -1px rgba(0, 0, 0, .2);
+    
+    box-shadow: 0 1px rgba(255, 255, 255, .4) inset, 0 1px #fff, 0 1px #fff;
+    -moz-box-shadow: 0 1px rgba(255, 255, 255, .4) inset, 0 1px #fff;
+    -webkit-box-shadow: 1px 1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        -1px 1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        1px -1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        -1px -1px 0px 0px rgba(255, 255, 255, .4) inset, 
+                        1px 1px -1px 0px rgba(255,255,255,.5);    
+    
+}
+.kinotice.AlmaTheme .kinotice-content {  }
