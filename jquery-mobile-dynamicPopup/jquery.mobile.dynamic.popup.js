@@ -1,31 +1,9 @@
 /**
- * $.dynamicPopup({
- *     content: 'This is the dynamic content of the popup.',
- *     popupId: '',
- *     popupClass: '',
- *     popupContentClass: '',
- *     popupCloseButtonClass: '',
- *     popupContentCloseButtonClass: '',
- *     popupContentCloseButtonLabel: '',
- *     callbacks: {
- *          popup: function(){ },
- *          popupContent: function(){ },
- *          popupCloseButton: function(){ },
- *          popupContentCloseButton: function(){ }
- *     },
- *     popupOptions: { // http://jquerymobile.com/demos/1.2.0-alpha.1/docs/pages/popup/options.html
- *          corners: bool,
- *          initSelector: '',
- *          overlayTheme: '',
- *          positionTo: '',
- *          shadow: bool,
- *          theme: '',
- *          tolerance: '',
- *          transition: ''
- *     }
- * });
+ * jQuery Mobile dynamic popup
+ * http://ghita.org/jquery/dynamic-mobile-popup
+ * Copyright 2012, Serban Ghita
+ * Released under the GPL Licenses.
  */
-
 (function($){
 
     function dynamicPopup(){
@@ -39,7 +17,7 @@
             // Extend the settings.
             self.settings = $.extend({
                                         popupOptions: {},
-                                        callbacks: null,
+                                        helpers: null,
                                         content: '',
                                         popupClass: '',
                                         popupContentClass: 'popupContent ui-content',
@@ -48,6 +26,8 @@
                                         popupContentCloseButtonLabel: 'Okay',
                                         popupId: 'popup' + $activePage.attr('id')
                                     }, options);
+
+            if(typeof options === 'string'){ self.settings.content = options; }
 
             $popup = $('#'+self.settings.popupId);
 
@@ -72,7 +52,7 @@
 
                     popupCloseButton: $('<a></a>').attr({ 'href': '#', 'data-rel': 'back', 'data-role': 'button', 'data-icon': 'delete', 'data-iconpos': 'notext' }).addClass(self.settings.popupCloseButtonClass).html('Close').button(),
 
-                    popupContentCloseButton: $('<a></a>').attr({ 'href': '#', 'data-rel': 'back', 'data-inline': true, 'data-icon': 'check', 'data-iconpos': 'right', 'data-theme': 'e' }).html('Okay').button()
+                    popupContentCloseButton: $('<a></a>').attr({ 'href': '#', 'data-rel': 'back', 'data-inline': true, 'data-icon': 'check', 'data-iconpos': 'right', 'data-theme': 'e' }).html(self.settings.popupContentCloseButtonLabel).button()
 
                 }
 
@@ -109,10 +89,10 @@
                 self.el.popupContent.append(self.settings.content);
             }
 
-            // Apply all possible callbacks.
-            if(self.settings.callbacks){
+            // Apply all possible callback helpers.
+            if(self.settings.helpers){
 
-                $.each(self.settings.callbacks, function(i, callback){
+                $.each(self.settings.helpers, function(i, helper){
 
                     this.apply(self.el[i]);
 
@@ -140,7 +120,7 @@
 
     }
 
-    $.fn.dynamicPopup = function(options){
+    $.dynamic_popup = function(options){
 
         var popup = new dynamicPopup();
         return popup.init(options, this);
