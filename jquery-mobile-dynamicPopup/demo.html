@@ -25,11 +25,11 @@
                 e.stopImmediatePropagation();
 
                 // Demo #1
-                if($('#name').val()!=''){
+                if($('#name').val()!='' && $('#email').val()!=''){
 
                     $.dynamic_popup({
                         content: '<p>' + $('#name').val() + ', you\'ve been successfully registered!' + '</p>',
-                        popupContentCloseButtonLabel: 'Nice!'
+                        closeBtnLabel: 'Nice!'
                     })
                     .bind({
                         popupafterclose: function(e){
@@ -39,8 +39,8 @@
 
                 } else {
 
-                    $.dynamic_popup('Enter your name before submitting the form.');
-
+                    $.dynamic_popup('Enter your <b>name</b> and <b>email</b> before submitting the form.');
+                    
                 }
 
             });

@@ -1,129 +1,136 @@
 /**
  * jQuery Mobile dynamic popup
- * http://ghita.org/jquery/dynamic-mobile-popup
- * Copyright 2012, Serban Ghita
- * Released under the GPL Licenses.
+ * 
+ * Original post: http://ghita.org/jquery/dynamic-mobile-popup
+ * Contribute: https://github.com/serbanghita/jquery-plugins
+ * Copyright 2012, Serban Ghita <serbanghita@gmail.com>
+ * Released under the MIT License.
  */
 (function($){
 
     function dynamicPopup(){
 
-        var self = this,
-            $popup = null,
+        var settings,
+            openSettings,
+            $wrappers,
+            $popup,
+            self        = this,
             $activePage = $.mobile.activePage;
 
-        this.init = function(options, elem){
+        this.init = function(generalOptions, openOptions){
 
-            // Extend the settings.
-            self.settings = $.extend({
-                                        popupOptions: {},
-                                        helpers: null,
-                                        content: '',
-                                        popupClass: '',
-                                        popupContentClass: 'popupContent ui-content',
-                                        popupCloseButtonClass: 'popupCloseButton ui-btn-right',
-                                        popupContentCloseButtonClass: 'popupContentCloseButton',
-                                        popupContentCloseButtonLabel: 'Okay',
-                                        popupId: 'popup' + $activePage.attr('id')
-                                    }, options);
+            // Extend the general settings.
+            settings = $.extend({
+                                    content: '',
+                                    popupId: 'popup' + $activePage.attr('id'),
+                                    closeBtnLabel: 'Okay',
+                                    history: false
+                                }, generalOptions);
 
-            if(typeof options === 'string'){ self.settings.content = options; }
+            // Extend the popup's open method settings.
+            openSettings = $.extend({
+                                    positionTo: 'window'
+                                }, openOptions);
 
-            $popup = $('#'+self.settings.popupId);
+            if(typeof generalOptions === 'string'){ settings.content = generalOptions; }
+            
+            self.setPopupWrappers();
+            self.popupatePopupContent();
+            self.putPopupInDOM();
+            self.openPopup();          
 
-            // Create the popup.
-            self._create();
-
-            return self.open();
+            return $popup;
 
         }
 
+        // Create the popup objects without the actual contents.
+        // If the popup container exists return it's objects.
+        this.setPopupWrappers = function(){
 
-        this._create = function(){
+            $popup = $('#' + settings.popupId);
 
-            if($popup.length==0){
+            // New popup, it doesn't exist.
+            if($popup.length == 0){ 
 
                 // Create the generic popup elements.
-                self.el = {
-
-                    popup: $('<div></div>').attr({ 'id': self.settings.popupId, 'data-role': 'popup', 'data-theme': 'b', 'data-overlay-theme': 'b' }),
-
-                    popupContent: $('<div></div>').attr({ 'data-role': 'content' }).addClass(self.settings.popupContentClass),
-
-                    popupCloseButton: $('<a></a>').attr({ 'href': '#', 'data-rel': 'back', 'data-role': 'button', 'data-icon': 'delete', 'data-iconpos': 'notext' }).addClass(self.settings.popupCloseButtonClass).html('Close').button(),
-
-                    popupContentCloseButton: $('<a></a>').attr({ 'href': '#', 'data-rel': 'back', 'data-inline': true, 'data-icon': 'check', 'data-iconpos': 'right', 'data-theme': 'e' }).html(self.settings.popupContentCloseButtonLabel).button()
-
-                }
-
-                // Tie together the HTML elements.
-                self.el.popup.append(self.el.popupCloseButton);
-                self.el.popup.append(self.el.popupContent).append(self.el.popupContentCloseButton);
-
-                // Append the popup to the current page.
-                $activePage.append(self.el.popup);
+                $wrappers = {
+                              main:       $('<div></div>').attr({ 'id': settings.popupId, 'data-role': 'popup', 'data-theme': 'b', 'data-overlay-theme': 'b' }),
+                              content:    $('<div></div>').attr({ 'data-role': 'content' }).addClass('ui-content content'),
+                              closeX:     $('<a></a>').attr({ 'href': '#', 'data-role': 'button', 'data-rel': 'back', 'data-icon': 'delete', 'data-iconpos': 'notext' }).addClass('ui-btn-right closeX').html('Close').button(),
+                              closeBtn:   $('<a></a>').attr({ 'href': '#', 'data-inline': true, 'data-rel': 'back', 'data-icon': 'check', 'data-iconpos': 'right', 'data-theme': 'e' }).addClass('closeBtn').html(settings.closeBtnLabel).button()
+                            };
 
             } else {
 
-                self.el = {
+                // Find the existing HTML wrappers.
+                $wrappers = {
+                              main:       $popup,
+                              content:    $popup.find('.content'),
+                              closeX:     $popup.find('.closeX'),
+                              closeBtn:   $popup.find('.closeBtn')
+                            };
 
-                    popup: $popup,
-
-                    popupContent: $popup.find('.popupContent'),
-
-                    popupCloseButton: $popup.find('.popupCloseButton'),
-
-                    popupContentCloseButton: $popup.find('.popupContentCloseButton')
-
-                }
-
-            }
-
-            // Populate the popup.
-            // 1. Static HTML string.
-            if(typeof self.settings.content === 'string'){
-                self.el.popupContent.html(self.settings.content);
-            }
-            // 2. jQuery object.
-            if(self.settings.content instanceof jQuery){
-                self.el.popupContent.append(self.settings.content);
             }
 
             // Apply all possible callback helpers.
-            if(self.settings.helpers){
+            //if(self.settings.helpers){
 
-                $.each(self.settings.helpers, function(i, helper){
+            //    $.each(self.settings.helpers, function(i, helper){
+            //        this.apply(self.el[i]);
+            //    });
 
-                    this.apply(self.el[i]);
+            //}
 
-                });
 
+        }
+
+        // Populate the popup's content.
+        this.popupatePopupContent = function(){
+
+            // 1. Static HTML string.
+            if(typeof settings.content === 'string'){
+                $wrappers.content.html(settings.content);
             }
 
-            $popup = $('#'+self.settings.popupId);
+            // 2. jQuery object.
+            if(settings.content instanceof jQuery){
+                $wrappers.content.append(settings.content);
+            }
+
+        }
+
+        this.putPopupInDOM = function(){
+
+            // Remove the existing popup from DOM.
+            $popup.remove();
+
+            // Tie together the HTML elements.
+            $wrappers.main.append($wrappers.closeX);
+            $wrappers.main.append($wrappers.content).append($wrappers.closeBtn);
+
+            // Append the popup to the current page.
+            $activePage.append($wrappers.main);
+
+        }   
+
+        this.openPopup = function(){
 
             // Init.
-            $popup.popup();
+            $popup = $('#' + settings.popupId);
+            $popup.popup(settings); 
 
+            // Open.
+            $popup.popup('open', openSettings); 
 
-
-        }
-
-        self.open = function(){
-            return $popup.popup('open', self.settings.popupOptions);
-        }
-
-        self.close = function(){
-            return $popup.popup('close');
-        }
-
+        }             
 
     }
 
-    $.dynamic_popup = function(options){
+    // Register the plugin.
+    $.dynamic_popup = function(generalOptions, openOptions){
 
         var popup = new dynamicPopup();
-        return popup.init(options, this);
+        return popup.init(generalOptions, openOptions);
 
     }
 
