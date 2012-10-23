@@ -94,7 +94,8 @@
 
             // 2. jQuery object.
             if(settings.content instanceof jQuery){
-                $wrappers.content.append(settings.content);
+                // Grab the content inside the wrapper.
+                $wrappers.content.html(settings.content.html());
             }
 
         }
