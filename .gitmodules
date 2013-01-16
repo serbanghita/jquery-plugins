@@ -1,0 +1,3 @@
+[submodule "jquery-chess"]
+	path = jquery-chess
+	url = git://github.com/serbanghita/jQuery-Chess.git
