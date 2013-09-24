@@ -1,3 +1,6 @@
 [submodule "jquery-chess"]
 	path = jquery-chess
 	url = git://github.com/serbanghita/jQuery-Chess.git
+[submodule "jQM-dynamic-popup"]
+	path = jQM-dynamic-popup
+	url = git://github.com/serbanghita/jQM-dynamic-popup.git
